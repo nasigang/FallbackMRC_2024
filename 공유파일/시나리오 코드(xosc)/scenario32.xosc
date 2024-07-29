@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FileHeader author="Scenario Runner" date="2024-07-24T14:16:59.151825" description="unknown" revMajor="1" revMinor="2"/>
+  <ParameterDeclarations/>
+  <CatalogLocations/>
+  <RoadNetwork>
+    <LogicFile filepath="MGeo"/>
+  </RoadNetwork>
+  <SimulatorInfo>
+    <Map name="R_KR_PR_Daegu_Arboretum"/>
+  </SimulatorInfo>
+  <Entities>
+    <ScenarioObject name="NPC_TV">
+      <Vehicle name="2016_Hyundai_Sonata" vehicleCategory="car">
+        <Properties>
+          <Property name="check_tl" value="false"/>
+          <Property name="apply_acc" value="false"/>
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="Ego">
+      <Vehicle name="2017_Hyundai_Grandeur" vehicleCategory="car">
+        <Properties>
+          <Property name="check_tl" value="false"/>
+          <Property name="apply_acc" value="false"/>
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="acci">
+      <Vehicle name="2016_Hyundai_Sonata" vehicleCategory="car">
+        <Properties>
+          <Property name="check_tl" value="false"/>
+          <Property name="apply_acc" value="false"/>
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+  </Entities>
+  <Storyboard>
+    <Init>
+      <Actions>
+        <Private entityRef="NPC_TV">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <LinkPosition id="A2221G100027" index="0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="22.222"/>
+                </SpeedActionTarget>
+                <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Ego">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <LinkPosition id="A2221G100025" index="140"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="22.222"/>
+                </SpeedActionTarget>
+                <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="acci">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <LinkPosition id="A2221G100034" index="390"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="0"/>
+                </SpeedActionTarget>
+                <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+    <Story name="new_story">
+      <Act name="new_act">
+        <ManeuverGroup name="new_maneuverGroup" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false"/>
+        </ManeuverGroup>
+        <ManeuverGroup name="ManueverGroup_Ego_event" maximumExecutionCount="1">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Ego"/>
+          </Actors>
+          <Maneuver name="Maneuver_Ego_event">
+            <Event name="Ego_event" maximumExecutionCount="1" priority="overwrite">
+              <Action name="Ego_stop">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed value="0" type="custom" range="0"/>
+                      </SpeedActionTarget>
+                      <SpeedActionDynamics dynamicsDimension="distance" dynamicsShape="step" value="3"/>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition name="Ego_condition" delay="0" conditionEdge="rising">
+                    <ByValueCondition>
+                      <SimulationTimeCondition value="18" rule="greaterThan"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition name="true_condition" delay="0" conditionEdge="none">
+              <ByValueCondition>
+                <SimulationTimeCondition value="0" rule="greaterThan"/>
+              </ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+        <StopTrigger/>
+      </Act>
+    </Story>
+    <StopTrigger/>
+  </Storyboard>
+  <Evaluation/>
+</OpenSCENARIO>
