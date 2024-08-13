@@ -11,7 +11,7 @@
   </SimulatorInfo>
   <Entities>
     <ScenarioObject name="Ego">
-      <Vehicle name="2017_Hyundai_Grandeur" vehicleCategory="car">
+      <Vehicle name="2021_Hyundai_G80" vehicleCategory="car">
         <Properties>
           <Property name="check_tl" value="false"/>
           <Property name="apply_acc" value="false"/>
@@ -26,7 +26,7 @@
           <EnvironmentAction>
             <Environment name="Environment1">
               <TimeOfDay animation="false" dateTime="2022-07-21T10:00:00"/>
-              <Weather atmosphericPressure="80000" temperature="170" fractionalCloudCover="zeroOktas">
+              <Weather atmosphericPressure="80000" fractionalCloudCover="zeroOktas" temperature="170">
                 <Sun azimuth="0.0" elevation="1.571" illuminance="1.0"/>
                 <Fog visualRange="0.1"/>
                 <Precipitation precipitationIntensity="0" precipitationType="rain"/>
@@ -57,7 +57,7 @@
           <PrivateAction>
             <RoutingAction>
               <AssignRouteAction>
-                <Route name="Ego_Route" closed="false" afterCompletion="hide">
+                <Route afterCompletion="hide" closed="false" name="Ego_Route">
                   <Waypoint routeStrategy="shortest">
                     <Position>
                       <LinkPosition id="A2221G100172" index="0"/>
@@ -82,21 +82,44 @@
     </Init>
     <Story name="new_story">
       <Act name="new_act">
-        <ManeuverGroup name="new_maneuverGroup" maximumExecutionCount="1">
+        <ManeuverGroup maximumExecutionCount="1" name="new_maneuverGroup">
           <Actors selectTriggeringEntities="false"/>
         </ManeuverGroup>
-        <ManeuverGroup name="ManueverGroup_Ego_event1" maximumExecutionCount="1">
+        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_Ego_event1">
           <Actors selectTriggeringEntities="false">
             <EntityRef entityRef="Ego"/>
           </Actors>
           <Maneuver name="Maneuver_Ego_event1">
-            <Event name="Ego_event1" maximumExecutionCount="1" priority="overwrite">
+            <Event maximumExecutionCount="1" name="Ego_Fallback" priority="overwrite">
+              <Action name="Ego_Fallbackaction">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed range="0" type="custom" value="22.222"/>
+                      </SpeedActionTarget>
+                      <SpeedActionDynamics dynamicsDimension="distance" dynamicsShape="linear" value="1"/>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="Ego_condition">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterThan" value="8"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+            <Event maximumExecutionCount="1" name="Ego_MRM_Stop" priority="overwrite">
               <Action name="Ego_speed1">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
                       <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="0" type="custom" range="0"/>
+                        <AbsoluteTargetSpeed range="0" type="custom" value="0"/>
                       </SpeedActionTarget>
                       <SpeedActionDynamics dynamicsDimension="distance" dynamicsShape="step" value="3"/>
                     </SpeedAction>
@@ -105,7 +128,7 @@
               </Action>
               <StartTrigger>
                 <ConditionGroup>
-                  <Condition name="Ego_condition" delay="0" conditionEdge="rising">
+                  <Condition conditionEdge="rising" delay="0" name="Ego_condition">
                     <ByEntityCondition>
                       <TriggeringEntities triggeringEntitiesRule="all">
                         <EntityRef entityRef="Ego"/>
@@ -126,9 +149,9 @@
         </ManeuverGroup>
         <StartTrigger>
           <ConditionGroup>
-            <Condition name="true_condition" delay="0" conditionEdge="none">
+            <Condition conditionEdge="none" delay="0" name="true_condition">
               <ByValueCondition>
-                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                <SimulationTimeCondition rule="greaterThan" value="0"/>
               </ByValueCondition>
             </Condition>
           </ConditionGroup>
