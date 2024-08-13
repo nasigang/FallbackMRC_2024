@@ -11,7 +11,7 @@
   </SimulatorInfo>
   <Entities>
     <ScenarioObject name="Ego">
-      <Vehicle name="2017_Hyundai_Grandeur" vehicleCategory="car">
+      <Vehicle name="2021_Hyundai_G80" vehicleCategory="car">
         <Properties>
           <Property name="check_tl" value="false"/>
           <Property name="apply_acc" value="false"/>
@@ -45,32 +45,55 @@
     </Init>
     <Story name="new_story">
       <Act name="new_act">
-        <ManeuverGroup name="new_maneuverGroup" maximumExecutionCount="1">
+        <ManeuverGroup maximumExecutionCount="1" name="new_maneuverGroup">
           <Actors selectTriggeringEntities="false"/>
         </ManeuverGroup>
-        <ManeuverGroup name="ManueverGroup_Ego_event" maximumExecutionCount="1">
+        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_Ego_Fallback">
           <Actors selectTriggeringEntities="false">
             <EntityRef entityRef="Ego"/>
           </Actors>
-          <Maneuver name="Maneuver_Ego_event">
-            <Event name="Ego_event" maximumExecutionCount="1" priority="overwrite">
-              <Action name="Ego_speed">
+          <Maneuver name="Maneuver_Ego_Fallback">
+            <Event maximumExecutionCount="1" name="Ego_Fallback" priority="overwrite">
+              <Action name="Ego_fallbackaction0">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneOffsetAction continuous="true">
+                      <LaneOffsetActionDynamics dynamicsShape="step" maxLateralAcc="1"/>
+                      <LaneOffsetTarget>
+                        <AbsoluteTargetLaneOffset value="0.01"/>
+                      </LaneOffsetTarget>
+                    </LaneOffsetAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="Ego_condition">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterOrEqual" value="3"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+            <Event maximumExecutionCount="1" name="Ego_MRM_Stop" priority="overwrite">
+              <Action name="Ego_MRM_Speed1">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
                       <SpeedActionTarget>
-                        <AbsoluteTargetSpeed value="0" type="custom" range="0"/>
+                        <AbsoluteTargetSpeed range="0" type="custom" value="0"/>
                       </SpeedActionTarget>
-                      <SpeedActionDynamics dynamicsDimension="distance" dynamicsShape="step" value="3"/>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="3"/>
                     </SpeedAction>
                   </LongitudinalAction>
                 </PrivateAction>
               </Action>
               <StartTrigger>
                 <ConditionGroup>
-                  <Condition name="Ego_condition" delay="0" conditionEdge="rising">
+                  <Condition conditionEdge="rising" delay="0" name="Ego_condition">
                     <ByValueCondition>
-                      <SimulationTimeCondition value="23" rule="greaterThan"/>
+                      <SimulationTimeCondition rule="greaterOrEqual" value="6"/>
                     </ByValueCondition>
                   </Condition>
                 </ConditionGroup>
@@ -80,9 +103,9 @@
         </ManeuverGroup>
         <StartTrigger>
           <ConditionGroup>
-            <Condition name="true_condition" delay="0" conditionEdge="none">
+            <Condition conditionEdge="none" delay="0" name="true_condition">
               <ByValueCondition>
-                <SimulationTimeCondition value="0" rule="greaterThan"/>
+                <SimulationTimeCondition rule="greaterThan" value="0"/>
               </ByValueCondition>
             </Condition>
           </ConditionGroup>

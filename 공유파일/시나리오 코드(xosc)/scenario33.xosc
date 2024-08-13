@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <FileHeader author="Scenario Runner" date="2024-07-26T10:23:06.789223" description="unknown" revMajor="1" revMinor="2"/>
+  <FileHeader author="Scenario Runner" date="2024-07-16T13:44:50.476663" description="unknown" revMajor="1" revMinor="2"/>
   <ParameterDeclarations/>
   <CatalogLocations/>
   <RoadNetwork>
@@ -18,7 +18,7 @@
         </Properties>
       </Vehicle>
     </ScenarioObject>
-    <ScenarioObject name="TV1">
+    <ScenarioObject name="NPC1">
       <Vehicle name="2017_Hyundai_Grandeur" vehicleCategory="car">
         <Properties>
           <Property name="check_tl" value="false"/>
@@ -26,13 +26,13 @@
         </Properties>
       </Vehicle>
     </ScenarioObject>
-    <ScenarioObject name="TV2">
-      <Vehicle name="2016_Hyundai_Santafe" vehicleCategory="car">
+    <ScenarioObject name="Deer">
+      <Pedestrian mass="0" name="Deer1" pedestrianCategory="pedestrian" role="none">
         <Properties>
-          <Property name="check_tl" value="false"/>
-          <Property name="apply_acc" value="false"/>
+          <Property name="activeDistance" value="0"/>
+          <Property name="moveDistance" value="0"/>
         </Properties>
-      </Vehicle>
+      </Pedestrian>
     </ScenarioObject>
   </Entities>
   <Storyboard>
@@ -42,7 +42,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <LinkPosition id="A2221G100013" index="0"/>
+                <LinkPosition id="A2221G100004" index="0"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -50,18 +50,18 @@
             <LongitudinalAction>
               <SpeedAction>
                 <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="22.222"/>
+                  <AbsoluteTargetSpeed value="20.7"/>
                 </SpeedActionTarget>
                 <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
               </SpeedAction>
             </LongitudinalAction>
           </PrivateAction>
         </Private>
-        <Private entityRef="TV1">
+        <Private entityRef="NPC1">
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <LinkPosition id="A2221G100013" index="300"/>
+                <LinkPosition id="A2221G100005" index="0"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -69,18 +69,18 @@
             <LongitudinalAction>
               <SpeedAction>
                 <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="13.888"/>
+                  <AbsoluteTargetSpeed value="22.22"/>
                 </SpeedActionTarget>
                 <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
               </SpeedAction>
             </LongitudinalAction>
           </PrivateAction>
         </Private>
-        <Private entityRef="TV2">
+        <Private entityRef="Deer">
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <LinkPosition id="A2221G100013" index="200"/>
+                <LinkPosition id="A2221G100008" index="250"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -88,7 +88,7 @@
             <LongitudinalAction>
               <SpeedAction>
                 <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="22.222"/>
+                  <AbsoluteTargetSpeed value="1"/>
                 </SpeedActionTarget>
                 <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
               </SpeedAction>
@@ -102,41 +102,11 @@
         <ManeuverGroup maximumExecutionCount="1" name="new_maneuverGroup">
           <Actors selectTriggeringEntities="false"/>
         </ManeuverGroup>
-        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_TV2_event">
-          <Actors selectTriggeringEntities="false">
-            <EntityRef entityRef="TV2"/>
-          </Actors>
-          <Maneuver name="Maneuver_TV2_event">
-            <Event maximumExecutionCount="1" name="TV2_event" priority="overwrite">
-              <Action name="TV_change">
-                <PrivateAction>
-                  <LateralAction>
-                    <LaneOffsetAction continuous="true">
-                      <LaneOffsetActionDynamics dynamicsShape="step" maxLateralAcc="3"/>
-                      <LaneOffsetTarget>
-                        <AbsoluteTargetLaneOffset value="3"/>
-                      </LaneOffsetTarget>
-                    </LaneOffsetAction>
-                  </LateralAction>
-                </PrivateAction>
-              </Action>
-              <StartTrigger>
-                <ConditionGroup>
-                  <Condition conditionEdge="rising" delay="0" name="TV2_condition">
-                    <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="3.5"/>
-                    </ByValueCondition>
-                  </Condition>
-                </ConditionGroup>
-              </StartTrigger>
-            </Event>
-          </Maneuver>
-        </ManeuverGroup>
-        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_Ego_event">
+        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_Ego_event1">
           <Actors selectTriggeringEntities="false">
             <EntityRef entityRef="Ego"/>
           </Actors>
-          <Maneuver name="Maneuver_Ego_event">
+          <Maneuver name="Maneuver_Ego_event1">
             <Event maximumExecutionCount="1" name="Ego_Fallback" priority="overwrite">
               <Action name="Ego_fallbackAction">
                 <PrivateAction>
@@ -160,7 +130,7 @@
                       <EntityCondition>
                         <DistanceCondition coordinateSystem="entity" freespace="true" relativeDistanceType="euclideanDistance" routingAlgorithm="assignedRoute" rule="lessThan" value="100">
                           <Position>
-                            <RelativeObjectPosition dx="0" dy="0" dz="0" entityRef="TV1"/>
+                            <RelativeObjectPosition dx="0" dy="0" dz="0" entityRef="Deer"/>
                           </Position>
                         </DistanceCondition>
                       </EntityCondition>
@@ -170,7 +140,7 @@
               </StartTrigger>
             </Event>
             <Event maximumExecutionCount="1" name="Ego_MRM_Stop" priority="overwrite">
-              <Action name="Ego_event">
+              <Action name="Ego_speed1">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
@@ -185,39 +155,18 @@
               <StartTrigger>
                 <ConditionGroup>
                   <Condition conditionEdge="rising" delay="0" name="Ego_condition">
-                    <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="6"/>
-                    </ByValueCondition>
-                  </Condition>
-                </ConditionGroup>
-              </StartTrigger>
-            </Event>
-          </Maneuver>
-        </ManeuverGroup>
-        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_TV1_event">
-          <Actors selectTriggeringEntities="false">
-            <EntityRef entityRef="TV1"/>
-          </Actors>
-          <Maneuver name="Maneuver_TV1_event">
-            <Event maximumExecutionCount="1" name="TV1_event" priority="overwrite">
-              <Action name="TV1_stop">
-                <PrivateAction>
-                  <LongitudinalAction>
-                    <SpeedAction>
-                      <SpeedActionTarget>
-                        <AbsoluteTargetSpeed range="0" type="custom" value="0"/>
-                      </SpeedActionTarget>
-                      <SpeedActionDynamics dynamicsDimension="distance" dynamicsShape="step" value="3"/>
-                    </SpeedAction>
-                  </LongitudinalAction>
-                </PrivateAction>
-              </Action>
-              <StartTrigger>
-                <ConditionGroup>
-                  <Condition conditionEdge="rising" delay="0" name="TV1_condition">
-                    <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="3"/>
-                    </ByValueCondition>
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="all">
+                        <EntityRef entityRef="Ego"/>
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <DistanceCondition coordinateSystem="entity" freespace="true" relativeDistanceType="euclideanDistance" routingAlgorithm="assignedRoute" rule="lessOrEqual" value="50">
+                          <Position>
+                            <RelativeObjectPosition dx="0" dy="0" dz="0" entityRef="Deer"/>
+                          </Position>
+                        </DistanceCondition>
+                      </EntityCondition>
+                    </ByEntityCondition>
                   </Condition>
                 </ConditionGroup>
               </StartTrigger>

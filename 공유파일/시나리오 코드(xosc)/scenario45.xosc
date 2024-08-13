@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <FileHeader author="Scenario Runner" date="2024-07-26T10:23:06.789223" description="unknown" revMajor="1" revMinor="2"/>
+  <FileHeader author="Scenario Runner" date="2024-08-06T13:37:01.866932" description="unknown" revMajor="1" revMinor="2"/>
   <ParameterDeclarations/>
   <CatalogLocations/>
   <RoadNetwork>
@@ -19,7 +19,7 @@
       </Vehicle>
     </ScenarioObject>
     <ScenarioObject name="TV1">
-      <Vehicle name="2017_Hyundai_Grandeur" vehicleCategory="car">
+      <Vehicle name="2016_Hyundai_Santafe" vehicleCategory="car">
         <Properties>
           <Property name="check_tl" value="false"/>
           <Property name="apply_acc" value="false"/>
@@ -27,7 +27,7 @@
       </Vehicle>
     </ScenarioObject>
     <ScenarioObject name="TV2">
-      <Vehicle name="2016_Hyundai_Santafe" vehicleCategory="car">
+      <Vehicle name="2017_Hyundai_Grandeur" vehicleCategory="car">
         <Properties>
           <Property name="check_tl" value="false"/>
           <Property name="apply_acc" value="false"/>
@@ -42,7 +42,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <LinkPosition id="A2221G100013" index="0"/>
+                <LinkPosition id="A2221G100032" index="0"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -61,7 +61,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <LinkPosition id="A2221G100013" index="300"/>
+                <LinkPosition id="A2221G100032" index="120"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -69,7 +69,7 @@
             <LongitudinalAction>
               <SpeedAction>
                 <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="13.888"/>
+                  <AbsoluteTargetSpeed value="22.222"/>
                 </SpeedActionTarget>
                 <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
               </SpeedAction>
@@ -80,7 +80,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <LinkPosition id="A2221G100013" index="200"/>
+                <LinkPosition id="A2221G100031" index="30"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -88,7 +88,7 @@
             <LongitudinalAction>
               <SpeedAction>
                 <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="22.222"/>
+                  <AbsoluteTargetSpeed value="11.111"/>
                 </SpeedActionTarget>
                 <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
               </SpeedAction>
@@ -108,7 +108,7 @@
           </Actors>
           <Maneuver name="Maneuver_TV2_event">
             <Event maximumExecutionCount="1" name="TV2_event" priority="overwrite">
-              <Action name="TV_change">
+              <Action name="TV2_lanechange">
                 <PrivateAction>
                   <LateralAction>
                     <LaneOffsetAction continuous="true">
@@ -124,69 +124,7 @@
                 <ConditionGroup>
                   <Condition conditionEdge="rising" delay="0" name="TV2_condition">
                     <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="3.5"/>
-                    </ByValueCondition>
-                  </Condition>
-                </ConditionGroup>
-              </StartTrigger>
-            </Event>
-          </Maneuver>
-        </ManeuverGroup>
-        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_Ego_event">
-          <Actors selectTriggeringEntities="false">
-            <EntityRef entityRef="Ego"/>
-          </Actors>
-          <Maneuver name="Maneuver_Ego_event">
-            <Event maximumExecutionCount="1" name="Ego_Fallback" priority="overwrite">
-              <Action name="Ego_fallbackAction">
-                <PrivateAction>
-                  <LateralAction>
-                    <LaneOffsetAction continuous="true">
-                      <LaneOffsetActionDynamics dynamicsShape="step" maxLateralAcc="2"/>
-                      <LaneOffsetTarget>
-                        <AbsoluteTargetLaneOffset value="0.01"/>
-                      </LaneOffsetTarget>
-                    </LaneOffsetAction>
-                  </LateralAction>
-                </PrivateAction>
-              </Action>
-              <StartTrigger>
-                <ConditionGroup>
-                  <Condition conditionEdge="rising" delay="0" name="Ego_condition">
-                    <ByEntityCondition>
-                      <TriggeringEntities triggeringEntitiesRule="all">
-                        <EntityRef entityRef="Ego"/>
-                      </TriggeringEntities>
-                      <EntityCondition>
-                        <DistanceCondition coordinateSystem="entity" freespace="true" relativeDistanceType="euclideanDistance" routingAlgorithm="assignedRoute" rule="lessThan" value="100">
-                          <Position>
-                            <RelativeObjectPosition dx="0" dy="0" dz="0" entityRef="TV1"/>
-                          </Position>
-                        </DistanceCondition>
-                      </EntityCondition>
-                    </ByEntityCondition>
-                  </Condition>
-                </ConditionGroup>
-              </StartTrigger>
-            </Event>
-            <Event maximumExecutionCount="1" name="Ego_MRM_Stop" priority="overwrite">
-              <Action name="Ego_event">
-                <PrivateAction>
-                  <LongitudinalAction>
-                    <SpeedAction>
-                      <SpeedActionTarget>
-                        <AbsoluteTargetSpeed range="0" type="custom" value="0"/>
-                      </SpeedActionTarget>
-                      <SpeedActionDynamics dynamicsDimension="distance" dynamicsShape="step" value="3"/>
-                    </SpeedAction>
-                  </LongitudinalAction>
-                </PrivateAction>
-              </Action>
-              <StartTrigger>
-                <ConditionGroup>
-                  <Condition conditionEdge="rising" delay="0" name="Ego_condition">
-                    <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="6"/>
+                      <SimulationTimeCondition rule="greaterThan" value="5.8"/>
                     </ByValueCondition>
                   </Condition>
                 </ConditionGroup>
@@ -200,14 +138,14 @@
           </Actors>
           <Maneuver name="Maneuver_TV1_event">
             <Event maximumExecutionCount="1" name="TV1_event" priority="overwrite">
-              <Action name="TV1_stop">
+              <Action name="TV1_STOP">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
                       <SpeedActionTarget>
                         <AbsoluteTargetSpeed range="0" type="custom" value="0"/>
                       </SpeedActionTarget>
-                      <SpeedActionDynamics dynamicsDimension="distance" dynamicsShape="step" value="3"/>
+                      <SpeedActionDynamics dynamicsDimension="distance" dynamicsShape="sinusoidal" value="1"/>
                     </SpeedAction>
                   </LongitudinalAction>
                 </PrivateAction>
@@ -216,7 +154,37 @@
                 <ConditionGroup>
                   <Condition conditionEdge="rising" delay="0" name="TV1_condition">
                     <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="3"/>
+                      <SimulationTimeCondition rule="greaterThan" value="6"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_Ego_Fallback">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Ego"/>
+          </Actors>
+          <Maneuver name="Maneuver_Ego_Fallback">
+            <Event maximumExecutionCount="1" name="Ego_Fallback" priority="overwrite">
+              <Action name="Ego_MRM_Stop">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed range="0" type="custom" value="0"/>
+                      </SpeedActionTarget>
+                      <SpeedActionDynamics dynamicsDimension="distance" dynamicsShape="sinusoidal" value="1"/>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="Ego_condition">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterThan" value="8"/>
                     </ByValueCondition>
                   </Condition>
                 </ConditionGroup>

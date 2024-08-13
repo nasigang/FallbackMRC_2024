@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <FileHeader author="Scenario Runner" date="2024-07-26T10:23:06.789223" description="unknown" revMajor="1" revMinor="2"/>
+  <FileHeader author="Scenario Runner" date="2024-07-29T17:22:43.001816" description="unknown" revMajor="1" revMinor="2"/>
   <ParameterDeclarations/>
   <CatalogLocations/>
   <RoadNetwork>
@@ -42,7 +42,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <LinkPosition id="A2221G100013" index="0"/>
+                <LinkPosition id="A2221G100018" index="1874"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -50,7 +50,7 @@
             <LongitudinalAction>
               <SpeedAction>
                 <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="22.222"/>
+                  <AbsoluteTargetSpeed value="22.22"/>
                 </SpeedActionTarget>
                 <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
               </SpeedAction>
@@ -61,7 +61,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <LinkPosition id="A2221G100013" index="300"/>
+                <LinkPosition id="A2221G100020" index="1887"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -69,7 +69,7 @@
             <LongitudinalAction>
               <SpeedAction>
                 <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="13.888"/>
+                  <AbsoluteTargetSpeed value="22.22"/>
                 </SpeedActionTarget>
                 <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
               </SpeedAction>
@@ -80,7 +80,7 @@
           <PrivateAction>
             <TeleportAction>
               <Position>
-                <LinkPosition id="A2221G100013" index="200"/>
+                <WorldPosition h="-360" p="0" r="0" x="-263.781" y="-985.478" z="109.621"/>
               </Position>
             </TeleportAction>
           </PrivateAction>
@@ -88,7 +88,7 @@
             <LongitudinalAction>
               <SpeedAction>
                 <SpeedActionTarget>
-                  <AbsoluteTargetSpeed value="22.222"/>
+                  <AbsoluteTargetSpeed value="16.666"/>
                 </SpeedActionTarget>
                 <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
               </SpeedAction>
@@ -97,34 +97,55 @@
         </Private>
       </Actions>
     </Init>
-    <Story name="new_story">
-      <Act name="new_act">
-        <ManeuverGroup maximumExecutionCount="1" name="new_maneuverGroup">
-          <Actors selectTriggeringEntities="false"/>
-        </ManeuverGroup>
-        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_TV2_event">
+    <Story name="Story">
+      <ParameterDeclarations/>
+      <Act name="FollowTrajectory_Act">
+        <ManeuverGroup maximumExecutionCount="1" name="FollowTrajectory_ManeuverGroup">
           <Actors selectTriggeringEntities="false">
             <EntityRef entityRef="TV2"/>
           </Actors>
-          <Maneuver name="Maneuver_TV2_event">
-            <Event maximumExecutionCount="1" name="TV2_event" priority="overwrite">
-              <Action name="TV_change">
+          <Maneuver name="Route_Maneuver">
+            <Event maximumExecutionCount="1" name="Route_Event" priority="overwrite">
+              <Action name="NPC_Route_Action">
                 <PrivateAction>
-                  <LateralAction>
-                    <LaneOffsetAction continuous="true">
-                      <LaneOffsetActionDynamics dynamicsShape="step" maxLateralAcc="3"/>
-                      <LaneOffsetTarget>
-                        <AbsoluteTargetLaneOffset value="3"/>
-                      </LaneOffsetTarget>
-                    </LaneOffsetAction>
-                  </LateralAction>
+                  <RoutingAction>
+                    <FollowTrajectoryAction>
+                      <TimeReference>
+                        <Timing domainAbsoluteRelative="relative" offset="0" scale="0"/>
+                      </TimeReference>
+                      <TrajectoryFollowingMode followingMode="follow"/>
+                      <TrajectoryRef>
+                        <Trajectory closed="false" name="test_trajectory">
+                          <Shape>
+                            <Polyline>
+                              <Vertex time="5">
+                                <Position>
+                                  <LinkPosition id="A2221G100019" index="250"/>
+                                </Position>
+                              </Vertex>
+                              <Vertex time="15">
+                                <Position>
+                                  <LinkPosition id="A2221G100019" index="200"/>
+                                </Position>
+                              </Vertex>
+                              <Vertex time="15">
+                                <Position>
+                                  <LinkPosition id="A2221G100018" index="2500"/>
+                                </Position>
+                              </Vertex>
+                            </Polyline>
+                          </Shape>
+                        </Trajectory>
+                      </TrajectoryRef>
+                    </FollowTrajectoryAction>
+                  </RoutingAction>
                 </PrivateAction>
               </Action>
               <StartTrigger>
                 <ConditionGroup>
-                  <Condition conditionEdge="rising" delay="0" name="TV2_condition">
+                  <Condition conditionEdge="none" delay="0" name="true_condition_event">
                     <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="3.5"/>
+                      <SimulationTimeCondition rule="greaterThan" value="0"/>
                     </ByValueCondition>
                   </Condition>
                 </ConditionGroup>
@@ -132,11 +153,11 @@
             </Event>
           </Maneuver>
         </ManeuverGroup>
-        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_Ego_event">
+        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_Ego_event1">
           <Actors selectTriggeringEntities="false">
             <EntityRef entityRef="Ego"/>
           </Actors>
-          <Maneuver name="Maneuver_Ego_event">
+          <Maneuver name="Maneuver_Ego_event1">
             <Event maximumExecutionCount="1" name="Ego_Fallback" priority="overwrite">
               <Action name="Ego_fallbackAction">
                 <PrivateAction>
@@ -158,9 +179,9 @@
                         <EntityRef entityRef="Ego"/>
                       </TriggeringEntities>
                       <EntityCondition>
-                        <DistanceCondition coordinateSystem="entity" freespace="true" relativeDistanceType="euclideanDistance" routingAlgorithm="assignedRoute" rule="lessThan" value="100">
+                        <DistanceCondition coordinateSystem="entity" freespace="true" relativeDistanceType="euclideanDistance" routingAlgorithm="assignedRoute" rule="lessThan" value="200">
                           <Position>
-                            <RelativeObjectPosition dx="0" dy="0" dz="0" entityRef="TV1"/>
+                            <RelativeObjectPosition dx="0" dy="0" dz="0" entityRef="TV2"/>
                           </Position>
                         </DistanceCondition>
                       </EntityCondition>
@@ -185,22 +206,31 @@
               <StartTrigger>
                 <ConditionGroup>
                   <Condition conditionEdge="rising" delay="0" name="Ego_condition">
-                    <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="6"/>
-                    </ByValueCondition>
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="all">
+                        <EntityRef entityRef="Ego"/>
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <DistanceCondition coordinateSystem="entity" freespace="true" relativeDistanceType="euclideanDistance" routingAlgorithm="fastest" rule="lessOrEqual" value="40">
+                          <Position>
+                            <RelativeObjectPosition dx="0" dy="0" dz="0" entityRef="TV2"/>
+                          </Position>
+                        </DistanceCondition>
+                      </EntityCondition>
+                    </ByEntityCondition>
                   </Condition>
                 </ConditionGroup>
               </StartTrigger>
             </Event>
           </Maneuver>
         </ManeuverGroup>
-        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_TV1_event">
+        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_TV2_event1">
           <Actors selectTriggeringEntities="false">
-            <EntityRef entityRef="TV1"/>
+            <EntityRef entityRef="TV2"/>
           </Actors>
-          <Maneuver name="Maneuver_TV1_event">
-            <Event maximumExecutionCount="1" name="TV1_event" priority="overwrite">
-              <Action name="TV1_stop">
+          <Maneuver name="Maneuver_TV2_event1">
+            <Event maximumExecutionCount="1" name="TV2_event1" priority="overwrite">
+              <Action name="TV2_event">
                 <PrivateAction>
                   <LongitudinalAction>
                     <SpeedAction>
@@ -214,10 +244,19 @@
               </Action>
               <StartTrigger>
                 <ConditionGroup>
-                  <Condition conditionEdge="rising" delay="0" name="TV1_condition">
-                    <ByValueCondition>
-                      <SimulationTimeCondition rule="greaterThan" value="3"/>
-                    </ByValueCondition>
+                  <Condition conditionEdge="rising" delay="0.05" name="TV2_condition">
+                    <ByEntityCondition>
+                      <TriggeringEntities triggeringEntitiesRule="all">
+                        <EntityRef entityRef="TV2"/>
+                      </TriggeringEntities>
+                      <EntityCondition>
+                        <DistanceCondition coordinateSystem="entity" freespace="true" relativeDistanceType="euclideanDistance" routingAlgorithm="fastest" rule="lessOrEqual" value="100">
+                          <Position>
+                            <RelativeObjectPosition dx="0" dy="0" dz="0" entityRef="Ego"/>
+                          </Position>
+                        </DistanceCondition>
+                      </EntityCondition>
+                    </ByEntityCondition>
                   </Condition>
                 </ConditionGroup>
               </StartTrigger>
@@ -226,7 +265,7 @@
         </ManeuverGroup>
         <StartTrigger>
           <ConditionGroup>
-            <Condition conditionEdge="none" delay="0" name="true_condition">
+            <Condition conditionEdge="none" delay="0" name="true_condition_act">
               <ByValueCondition>
                 <SimulationTimeCondition rule="greaterThan" value="0"/>
               </ByValueCondition>
