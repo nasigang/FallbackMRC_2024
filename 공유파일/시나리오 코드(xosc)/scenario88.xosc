@@ -1,0 +1,243 @@
+<?xml version="1.0" ?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FileHeader author="Scenario Runner" date="2024-08-09T15:28:08.836468" description="unknown" revMajor="1" revMinor="2"/>
+  <ParameterDeclarations/>
+  <CatalogLocations/>
+  <RoadNetwork>
+    <LogicFile filepath="MGeo"/>
+  </RoadNetwork>
+  <SimulatorInfo>
+    <Map name="R_KR_PR_Daegu_Arboretum"/>
+  </SimulatorInfo>
+  <Entities>
+    <ScenarioObject name="Ego">
+      <Vehicle name="2021_Hyundai_G80" vehicleCategory="car">
+        <Properties>
+          <Property name="check_tl" value="false"/>
+          <Property name="apply_acc" value="false"/>
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="TV">
+      <Vehicle name="2017_Hyundai_Grandeur" vehicleCategory="car">
+        <Properties>
+          <Property name="check_tl" value="false"/>
+          <Property name="apply_acc" value="false"/>
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="Rubber_Cone1">
+      <MiscObject mass="0" miscObjectCategory="roadMark" name="Rubber_Cone">
+        <Properties>
+          <Property name="scale_x" value="1.0"/>
+          <Property name="scale_y" value="1.0"/>
+          <Property name="scale_z" value="1.0"/>
+        </Properties>
+      </MiscObject>
+    </ScenarioObject>
+    <ScenarioObject name="Rubber_Cone2">
+      <MiscObject mass="0" miscObjectCategory="roadMark" name="Rubber_Cone">
+        <Properties>
+          <Property name="scale_x" value="1.0"/>
+          <Property name="scale_y" value="1.0"/>
+          <Property name="scale_z" value="1.0"/>
+        </Properties>
+      </MiscObject>
+    </ScenarioObject>
+    <ScenarioObject name="Rubber_Cone3">
+      <MiscObject mass="0" miscObjectCategory="roadMark" name="Rubber_Cone">
+        <Properties>
+          <Property name="scale_x" value="1.0"/>
+          <Property name="scale_y" value="1.0"/>
+          <Property name="scale_z" value="1.0"/>
+        </Properties>
+      </MiscObject>
+    </ScenarioObject>
+    <ScenarioObject name="Rubber_Cone4">
+      <MiscObject mass="0" miscObjectCategory="roadMark" name="Rubber_Cone">
+        <Properties>
+          <Property name="scale_x" value="1.0"/>
+          <Property name="scale_y" value="1.0"/>
+          <Property name="scale_z" value="1.0"/>
+        </Properties>
+      </MiscObject>
+    </ScenarioObject>
+    <ScenarioObject name="Rubber_Cone5">
+      <MiscObject mass="0" miscObjectCategory="roadMark" name="Rubber_Cone">
+        <Properties>
+          <Property name="scale_x" value="1.0"/>
+          <Property name="scale_y" value="1.0"/>
+          <Property name="scale_z" value="1.0"/>
+        </Properties>
+      </MiscObject>
+    </ScenarioObject>
+  </Entities>
+  <Storyboard>
+    <Init>
+      <Actions>
+        <Private entityRef="Ego">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <LinkPosition id="A2221G100016" index="270"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="22.22222222"/>
+                </SpeedActionTarget>
+                <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="TV">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <LinkPosition id="A2221G100020" index="0"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="22.22222222"/>
+                </SpeedActionTarget>
+                <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Rubber_Cone1">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition h="0" p="0" r="0" x="-896.031" y="-1949.553" z="125.929"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Rubber_Cone2">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition h="0" p="0" r="0" x="-896.4" y="-1948.5" z="125.929"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Rubber_Cone3">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition h="0" p="0" r="0" x="-896.031" y="-1947.553" z="125.929"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Rubber_Cone4">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition h="0" p="0" r="0" x="-895.5" y="-1946.553" z="125.929"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="Rubber_Cone5">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <WorldPosition h="0" p="0" r="0" x="-894.5" y="-1945.553" z="125.929"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+    <Story name="new_story">
+      <Act name="new_act">
+        <ManeuverGroup maximumExecutionCount="1" name="new_maneuverGroup">
+          <Actors selectTriggeringEntities="false"/>
+        </ManeuverGroup>
+        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_TV_LC">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="TV"/>
+          </Actors>
+          <Maneuver name="Maneuver_TV_LC">
+            <Event maximumExecutionCount="1" name="TV_LC" priority="overwrite">
+              <Action name="TV_LC">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneOffsetAction continuous="true">
+                      <LaneOffsetActionDynamics dynamicsShape="step" maxLateralAcc="3"/>
+                      <LaneOffsetTarget>
+                        <AbsoluteTargetLaneOffset value="-3"/>
+                      </LaneOffsetTarget>
+                    </LaneOffsetAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="TV_condition">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterThan" value="9"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_Ego_Fallback">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Ego"/>
+          </Actors>
+          <Maneuver name="Maneuver_Ego_Fallback">
+            <Event maximumExecutionCount="1" name="Ego_Fallback" priority="overwrite">
+              <Action name="Ego_MRM_Stop">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed range="0" type="custom" value="0"/>
+                      </SpeedActionTarget>
+                      <SpeedActionDynamics dynamicsDimension="distance" dynamicsShape="step" value="3"/>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="Ego_condition">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterThan" value="10"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition conditionEdge="none" delay="0" name="true_condition">
+              <ByValueCondition>
+                <SimulationTimeCondition rule="greaterThan" value="0"/>
+              </ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+        <StopTrigger/>
+      </Act>
+    </Story>
+    <StopTrigger/>
+  </Storyboard>
+  <Evaluation/>
+</OpenSCENARIO>

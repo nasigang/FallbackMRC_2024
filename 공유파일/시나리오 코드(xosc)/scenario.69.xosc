@@ -1,0 +1,221 @@
+<?xml version="1.0" ?>
+<OpenSCENARIO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FileHeader author="Scenario Runner" date="2024-08-12T09:35:49.303110" description="unknown" revMajor="1" revMinor="2"/>
+  <ParameterDeclarations/>
+  <CatalogLocations/>
+  <RoadNetwork>
+    <LogicFile filepath="MGeo"/>
+  </RoadNetwork>
+  <SimulatorInfo>
+    <Map name="R_KR_PR_Daegu_Arboretum"/>
+  </SimulatorInfo>
+  <Entities>
+    <ScenarioObject name="Ego">
+      <Vehicle name="2021_Hyundai_G80" vehicleCategory="car">
+        <Properties>
+          <Property name="check_tl" value="true"/>
+          <Property name="apply_acc" value="true"/>
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="NPC_1">
+      <Vehicle name="2017_Hyundai_Grandeur" vehicleCategory="car">
+        <Properties>
+          <Property name="check_tl" value="false"/>
+          <Property name="apply_acc" value="false"/>
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+    <ScenarioObject name="NPC_2">
+      <Vehicle name="2013_Hyundai_Xcient(P540)" vehicleCategory="car">
+        <Properties>
+          <Property name="check_tl" value="false"/>
+          <Property name="apply_acc" value="false"/>
+        </Properties>
+      </Vehicle>
+    </ScenarioObject>
+  </Entities>
+  <Storyboard>
+    <Init>
+      <Actions>
+        <Private entityRef="Ego">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <LinkPosition id="A2221G100029" index="24"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="22.222"/>
+                </SpeedActionTarget>
+                <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="NPC_1">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <LinkPosition id="A2221G100031" index="146"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="11.111"/>
+                </SpeedActionTarget>
+                <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+          <PrivateAction>
+            <RoutingAction>
+              <AssignRouteAction>
+                <Route afterCompletion="hide" closed="false" name="NPC_1_Route">
+                  <Waypoint routeStrategy="shortest">
+                    <Position>
+                      <LinkPosition id="A2221G100031" index="0"/>
+                    </Position>
+                  </Waypoint>
+                  <Waypoint routeStrategy="shortest">
+                    <Position>
+                      <LinkPosition id="A2221G100041" index="0"/>
+                    </Position>
+                  </Waypoint>
+                </Route>
+              </AssignRouteAction>
+            </RoutingAction>
+          </PrivateAction>
+        </Private>
+        <Private entityRef="NPC_2">
+          <PrivateAction>
+            <TeleportAction>
+              <Position>
+                <LinkPosition id="A2221G100032" index="50"/>
+              </Position>
+            </TeleportAction>
+          </PrivateAction>
+          <PrivateAction>
+            <LongitudinalAction>
+              <SpeedAction>
+                <SpeedActionTarget>
+                  <AbsoluteTargetSpeed value="22.222"/>
+                </SpeedActionTarget>
+                <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
+              </SpeedAction>
+            </LongitudinalAction>
+          </PrivateAction>
+        </Private>
+      </Actions>
+    </Init>
+    <Story name="new_story">
+      <Act name="new_act">
+        <ManeuverGroup maximumExecutionCount="1" name="new_maneuverGroup">
+          <Actors selectTriggeringEntities="false"/>
+        </ManeuverGroup>
+        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_NPC2_Lanechange">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="NPC_2"/>
+          </Actors>
+          <Maneuver name="Maneuver_NPC2_Lanechange">
+            <Event maximumExecutionCount="1" name="NPC2_Lanechange" priority="overwrite">
+              <Action name="NPC2_Lanechange">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneOffsetAction continuous="true">
+                      <LaneOffsetActionDynamics dynamicsShape="step" maxLateralAcc="3"/>
+                      <LaneOffsetTarget>
+                        <AbsoluteTargetLaneOffset value="3"/>
+                      </LaneOffsetTarget>
+                    </LaneOffsetAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="NPC_2">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterOrEqual" value="11.2"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <ManeuverGroup maximumExecutionCount="1" name="ManueverGroup_Ego_Fallback">
+          <Actors selectTriggeringEntities="false">
+            <EntityRef entityRef="Ego"/>
+          </Actors>
+          <Maneuver name="Maneuver_Ego_Fallback">
+            <Event maximumExecutionCount="1" name="Ego_Fallback" priority="overwrite">
+              <Action name="Ego_Fallback0">
+                <PrivateAction>
+                  <LateralAction>
+                    <LaneOffsetAction continuous="true">
+                      <LaneOffsetActionDynamics dynamicsShape="step" maxLateralAcc="3"/>
+                      <LaneOffsetTarget>
+                        <AbsoluteTargetLaneOffset value="0.01"/>
+                      </LaneOffsetTarget>
+                    </LaneOffsetAction>
+                  </LateralAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="Ego_condition">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterOrEqual" value="13"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+            <Event maximumExecutionCount="1" name="Ego_MRM_Stop" priority="overwrite">
+              <Action name="Ego_MRM_Stop">
+                <PrivateAction>
+                  <LongitudinalAction>
+                    <SpeedAction>
+                      <SpeedActionTarget>
+                        <AbsoluteTargetSpeed range="0" type="custom" value="0"/>
+                      </SpeedActionTarget>
+                      <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="linear" value="2"/>
+                    </SpeedAction>
+                  </LongitudinalAction>
+                </PrivateAction>
+              </Action>
+              <StartTrigger>
+                <ConditionGroup>
+                  <Condition conditionEdge="rising" delay="0" name="Ego_condition">
+                    <ByValueCondition>
+                      <SimulationTimeCondition rule="greaterOrEqual" value="13.8"/>
+                    </ByValueCondition>
+                  </Condition>
+                </ConditionGroup>
+              </StartTrigger>
+            </Event>
+          </Maneuver>
+        </ManeuverGroup>
+        <StartTrigger>
+          <ConditionGroup>
+            <Condition conditionEdge="none" delay="0" name="true_condition">
+              <ByValueCondition>
+                <SimulationTimeCondition rule="greaterThan" value="0"/>
+              </ByValueCondition>
+            </Condition>
+          </ConditionGroup>
+        </StartTrigger>
+        <StopTrigger/>
+      </Act>
+    </Story>
+    <StopTrigger/>
+  </Storyboard>
+  <Evaluation/>
+</OpenSCENARIO>
